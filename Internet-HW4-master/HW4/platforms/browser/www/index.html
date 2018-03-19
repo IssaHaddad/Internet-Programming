@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css">
+    <link rel="stylesheet" href="range.css">
+    <link rel="stylesheet" href="compose.css">
+
+    <script src="lib/onsen/js/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+       <script src="http://code.angularjs.org/1.2.3/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  </head>
+  <body ng-app="myapp">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Questionaire</div>
+      </ons-toolbar>
+        <div ng-controller="maincontroller">
+      <ons-list>
+
+        <ons-list-header>{{questions[1].Question}}</ons-list-header>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a" ng-model="multiple" value="C">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            {{questions[1].QAnswerCorrect.CAnswer}}
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a" ng-model="multiple" value="W0">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            {{questions[1].QAnswerWrong.WAnswer[0]}}
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a" ng-model="multiple" value="W1">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            {{questions[1].QAnswerWrong.WAnswer[1]}}
+          </label>
+        </ons-list-item>
+
+         <ons-list-header>{{questions[0].Question}}</ons-list-header>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="b" ng-model="truefalse" value="T">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            True
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="b" ng-model="truefalse" value="F">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            False
+          </label>
+        </ons-list-item>
+
+        <ons-list-header>{{questions[2].Question}}</ons-list-header>
+
+        <ons-list-item>
+          <input type="text" class="text-input text-input--transparent" placeholder="Answer" style="width: 100%" ng-model="fillinblank">
+        </ons-list-item>
+
+        <ons-list-header>{{questions[3].Question}}</ons-list-header>
+
+        <ons-list-item>
+          <textarea class="textarea textarea--transparent" placeholder="Short_Answer" style="width: 100%; height: 100px;"
+                    ng-model="essay"></textarea>
+        </ons-list-item>
+        <div style="padding: 10px 9px">
+            <ons-button modifier="large" style="margin: 0 auto;" ng-click="submit()">
+                Send
+            </ons-button>
+        </div>
+          <h1>Number of Question you got correct: {{grade}}</h1>
+            </ons-list>
+          </div>
+    </ons-page>
+      
+        <script>
+       var app =  angular.module('myapp', []);
+        app.controller('maincontroller', ['$scope',function($scope) {
+        $scope.questions={}
+        $.ajax({
+       type: "GET",
+       url: "http://127.0.0.1:5984/hw4/questions/?jsonp=callback",
+       dataType : "jsonp",
+       contentType: "application/json",
+       jsonpCallback: "callback",
+       success : function(data){
+           $scope.$apply(function(){
+              $scope.questions=data.folder; 
+           });
+           console.log(data.folder);
+        }
+    });
+            $scope.submit = function(){
+                var grade=0;
+                var fillintheblankans=$scope.fillinblank.toLowerCase();
+                if($scope.multiple=="C"){
+                    grade++;
+                }
+                if($scope.truefalse==$scope.questions[0].QAnswer){
+                        grade++;
+                    }
+                if (fillintheblankans==$scope.questions[2].QAnswer[0] || fillintheblankans==$scope.questions[2].QAnswer[1] || fillintheblankans==$scope.questions[2].QAnswer[2]){
+                    grade++;
+                }
+                if($scope.essay!="")
+                    {grade++;}
+                console.log(grade)
+                $scope.grade=grade;
+            }
+        }]);
+    </script>
+  </body>
+</html>

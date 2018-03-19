@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.open("GET", "hw2h.xml", false);
+xhttp.send();
+var xmlDoc = xhttp.responseXML;
+var x = xmlDoc.getElementsByTagName("questestinterop");
+var question = x[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].nodeValue;
+var A1 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].nodeValue;
+var I1 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[0].getAttribute('ident');
+var A2 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes[0].nodeValue;
+var I2 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[1].getAttribute('ident');
+var A3 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].nodeValue;
+var I3 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[2].getAttribute('ident');
+var A4 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[3].childNodes[0].childNodes[0].childNodes[0].nodeValue;
+var I4 = x[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].childNodes[3].getAttribute('ident');
+document.writeln(question);
+document.write("<br>");
+document.writeln("<form action='action_page.php' method='post'>");
+document.writeln("<input type='radio' name='R' id='A' value='A1'>"+ A1 +"<br>");
+//document.writeln(A1);
+//document.write("<br>");
+document.writeln("<input type='radio' name='R' id='B' value='A2'>"+ A2 + "<br>");
+//document.writeln(A2);
+//document.write("<br>");
+document.writeln("<input type='radio' name='R' id='C' value='A3'>"+ A3 + "<br>");
+//document.writeln(A3);
+//document.write("<br>");
+document.writeln("<input type='radio' name='R' id='D' value='A4'>"+ A4 +"<br>");
+//document.writeln(A4);
+//document.write("<br>");
+document.writeln("<input type='submit'>")
+//document.write("<br>");
+document.writeln("</form>");
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+// true/false
+::Q1:: Are Giraffes the tallest living animals? 
+{T}
+
+// multiple choice
+::Q2:: what is the biggest mall in the world?
+{ =Dubai Mall # correct ~Ibn Batuta Mall # wrong, its Dubai Mall ~Emirates Mall # wrong, its Dubai Mall}
+
+// fill-in-the-blank
+::Q3:: {=Usain Bolt =Bolt =Usain} is the fastest man in the world
+
+// essay
+::Q4:: Why is 42 the answer to life?
+{}
